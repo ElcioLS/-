@@ -1,0 +1,20 @@
+import 'package:adf_cuidapet/app/modules/address/address_controller.dart';
+import 'package:adf_cuidapet/app/modules/address/address_detail/address_detail_module.dart';
+import 'package:adf_cuidapet/app/modules/address/address_page.dart';
+import 'package:adf_cuidapet/app/modules/address/widgets/address_search_widget/address_search_controller.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
+class AddressModule extends Module {
+  @override
+  final List<Bind> binds = [
+    Bind.lazySingleton((i) => AddressController(addressService: i())),
+    Bind.lazySingleton(
+        (i) => AddressSearchController(addressService: i())) //CoreModule
+  ];
+
+  @override
+  List<ModularRoute> get routes => [
+        ChildRoute(Modular.initialRoute, child: (_, __) => const AddressPage()),
+        ModuleRoute('/detail', module: AddressDetailModule()),
+      ];
+}
